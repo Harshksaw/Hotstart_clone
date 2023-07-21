@@ -30,7 +30,7 @@ let movies = [
   },
 ];
 const carousel = document.querySelector(".carousel");
-let slider = [];
+let sliders = [];
 
 let slideIndex = 0; //track the current slide
 
@@ -39,22 +39,22 @@ const createSlide = () => {
     slideIndex = 0;
   }
 
-  let slide = document.createElement("div");
-  var imgElement = document.createElement("img");
-  let content = document.createElement("div");
-  let h1 = document.createElement("h1");
-  let p = document.createElement("p");
+  let slide = document.createElement('div');
+  var imgElement = document.createElement('img');
+  let content = document.createElement('div');
+  let h1 = document.createElement('h1');
+  let p = document.createElement('p');
   //attaching all the elements
-  imgElement.appendChild(document.createTextNode(""));
+  imgElement.appendChild(document.createTextNode(''));
   h1.appendChild(document.createTextNode(movies[slideIndex].name));
-  p.appendChild(documnet.createTextNode(movies[slideIndex].des));
+  p.appendChild(document.createTextNode(movies[slideIndex].des));
   content.appendChild(h1);
   content.appendChild(p);
   slide.appendChild(imgElement);
   carousel.appendChild(slide);
   //settings up images
 
-  imgElement.src = movies[slideIndex].images;
+  imgElement.src = movies[slideIndex].image;
   slideIndex++;
 
   //settings elements classnames
@@ -64,7 +64,7 @@ const createSlide = () => {
   p.className = "movie-des";
 
   sliders.push(slide);
-  if (slide.length) {
+  if (sliders.length) {
     sliders[0].style.marginLeft = `calc(-${100 * (sliders.length - 2)}% - 
         ${30 * (sliders.length - 2)}px)`;
     // The condition checks if `slide` is not empty (has a length greater than zero).
@@ -89,8 +89,8 @@ const createSlide = () => {
     // Then it subtracts both values from the left margin, effectively positioning the first slider
     // so that it shows the second-to-last slider, leaving the first and last sliders partially hidden.
   }
-};
-for (let i = 0; i < 3; i++) {
+}
+for(let i = 0; i < 3; i++) {
   createSlide();
 }
 
