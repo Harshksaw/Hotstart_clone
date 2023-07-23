@@ -1,31 +1,32 @@
 let movies = [
   {
-      name: 'Loki',
-      des: 'Loki, the God of Mischief, steps out of his brothers shadow to embark on an adventure that takes place after the events of Avengers: Endgame',
-      image:'images/slider 1.PNG'
+    name: "Loki",
+    des: "Loki, the God of Mischief, steps out of his brothers shadow to embark on an adventure that takes place after the events of Avengers: Endgame",
+    image: "images/slider 1.PNG",
   },
   {
-      name: 'Falcon and the winter soldier',
-      des: 'Falcon and the Winter Soldier are a mismatched duo who team up for a global adventure that will test their survival skills -- as well as their patience.',
-      image:'images/slider 2.PNG'
+    name: "Falcon and the winter soldier",
+    des: "Falcon and the Winter Soldier are a mismatched duo who team up for a global adventure that will test their survival skills -- as well as their patience.",
+    image: "images/slider 2.PNG",
   },
   {
-      name: "Wanda Vision",
-      des: "Living idealized suburban lives, super-powered beings Wanda and Vision begin to suspect that everything is not as it seems.",
-      image:"images/slider 3.PNG"
+    name: "Wanda Vision",
+    des: "Living idealized suburban lives, super-powered beings Wanda and Vision begin to suspect that everything is not as it seems.",
+    image: "images/slider 3.PNG",
   },
   {
-      name: 'Raya and the last dragon',
-      des: 'Raya, a warrior, sets out to track down Sisu, a dragon, who transferred all her powers into a magical gem which is now scattered all over the kingdom of Kumandra, dividing its people.',
-      image: 'images/slider 4.PNG'
+    name: "Raya and the last dragon",
+    des: "Raya, a warrior, sets out to track down Sisu, a dragon, who transferred all her powers into a magical gem which is now scattered all over the kingdom of Kumandra, dividing its people.",
+    image: "images/slider 4.PNG",
   },
   {
-      name: 'Luca',
-      des: 'Set in a beautiful seaside town on the Italian Riviera, the original animated feature is a coming-of-age story about one young boy experiencing an unforgettable summer filled with gelato, pasta and endless scooter rides. Luca shares these adventures with his newfound best friend, but all the fun is threatened by a deeply held secret: he is a sea monster from another world just below the water surface.',
-      image: 'images/slider 5.PNG'
-  }
-]
+    name: "Luca",
+    des: "Set in a beautiful seaside town on the Italian Riviera, the original animated feature is a coming-of-age story about one young boy experiencing an unforgettable summer filled with gelato, pasta and endless scooter rides. Luca shares these adventures with his newfound best friend, but all the fun is threatened by a deeply held secret: he is a sea monster from another world just below the water surface.",
+    image: "images/slider 5.PNG",
+  },
+];
 const carousel = document.querySelector('.carousel');
+
 let sliders = [];
 
 let slideIndex = 0; //track the current slide
@@ -40,25 +41,24 @@ const createSlide = () => {
   let content = document.createElement('div');
   let h1 = document.createElement('h1');
   let p = document.createElement('p');
-  
+
   //attaching all the elements
 
-
   carousel.appendChild(slide); //   <!-- <div class="slider">
- 
+
   h1.appendChild(document.createTextNode(movies[slideIndex].name));
   p.appendChild(document.createTextNode(movies[slideIndex].des));
-  slide.appendChild(content); //  <!-- <div class="slider"> 
+  slide.appendChild(content); //  <!-- <div class="slider">
   //content ->>
-  content.appendChild(h1); 
-  content.appendChild(p); 
+  content.appendChild(h1);
+  content.appendChild(p);
   // <div class="slide-content">
   // <h1 class="movie-title">loki</h1>
   // <p class="movie-des"> Lorem ipsu em</p></div>
-  
+
   slide.appendChild(imgElement); // <img  class="slider-img" src="images/slider 1.PNG" alt ="" />
-  imgElement.appendChild(document.createTextNode(''));
-  
+  imgElement.appendChild(document.createTextNode(""));
+
   //settings up images
 
   imgElement.src = movies[slideIndex].image;
@@ -70,7 +70,7 @@ const createSlide = () => {
   content.className = 'slide-content';
   h1.className = 'movie-title';
   p.className = 'movie-des';
-  imgElement.className = 'slider-img'
+  imgElement.className = 'slider-img';
 
   sliders.push(slide);
   if (sliders.length) {
@@ -98,8 +98,8 @@ const createSlide = () => {
     // Then it subtracts both values from the left margin, effectively positioning the first slider
     // so that it shows the second-to-last slider, leaving the first and last sliders partially hidden.
   }
-}
-for(let i = 0; i < 3; i++) {
+};
+for (let i = 0; i < 3; i++) {
   createSlide();
 }
 
@@ -107,19 +107,43 @@ setInterval(() => {
   createSlide();
 }, 3000);
 
-
 //video cards
 
 const videoCards = [...document.querySelectorAll('.video-card')];
-videoCards.forEach(item =>{
-  item.addEventListener('mouseover', () =>{
+videoCards.forEach((item) => {
+  item.addEventListener("mouseover", () => {
     let video = item.children[1];
-    video.play()
-  })
-  item.addEventListener('mouseleave', () =>{
-    let video = item.children[1];
-    video.pause()
+    video.play();
   });
-})
+  item.addEventListener("mouseleave", () => {
+    let video = item.children[1];
+    video.pause();
+  });
+});
 
-//card sliders
+//movies card sliders
+
+let cardContainers = [...document.querySelectorAll(".movie-card-container")];
+// console.log(cardContainers)
+
+let preBtns = [...document.querySelectorAll(".pre-btn")];
+let nxtBtns = [...document.querySelectorAll(".nxt-btn")];
+
+cardContainers.forEach((item, i) => {
+  // for each i s used to iterate through each card container element in the
+  //  cardContainers array
+  let containerDimensions = item.getBoundingClientRect();
+  let containerWidth = containerDimensions.width;
+  //width of card conatiner
+  nxtBtns[i].addEventListener("click", () => {
+    item.scrollLeft += containerWidth - 200;
+    // event listener adjusts the horizontal scroll position (item.scrollLeft) of the current
+    //  card container (item) by adding the width of the container minus 200 pixels. 
+    //scrolling by removing the card container (-200 width) ie dimension
+    // of card slot ie. 5
+  });
+
+  preBtns[i].addEventListener("click", () => {
+    item.scrollLeft -= containerWidth + 200;
+  });
+});
